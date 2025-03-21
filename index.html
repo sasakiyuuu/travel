@@ -8,85 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-    h1, h2, .logo-text {
-      font-family: 'Playfair Display', serif;
-    }
-    /* ヒーロー背景・アニメーション */
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(45deg, rgba(255,0,150,0.3), rgba(0,150,255,0.3));
-      background-size: 400% 400%;
-      animation: gradientAnimation 10s ease infinite;
-    }
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    /* ガラス感のあるナビゲーション */
-    .glass-nav {
-      background: rgba(255,255,255,0.25);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.18);
-    }
-    /* ホテルカードのスタイル */
-    .card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 15px 25px rgba(0,0,0,0.3);
-    }
-    .card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 1rem;
-      padding: 2px;
-      background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: destination-out;
-              mask-composite: exclude;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-    .card:hover::after {
-      opacity: 1;
-    }
-    /* 最安値テキスト */
-    .price-text {
-      background: linear-gradient(45deg, #3a86ff, #ff006e);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: textGradient 3s ease infinite;
-    }
-    @keyframes textGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    /* フェードイン */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-    .fade-in.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  <!-- 共通CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gradient-to-b from-gray-50 to-gray-200">
   <!-- ヒーローセクション -->
@@ -112,7 +35,7 @@
 
   <!-- メインコンテンツ：ホテルカード -->
   <main id="hotelContainer" class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- JSON読み込みでカード生成 -->
+    <!-- JSONから読み込みでカード生成 -->
   </main>
 
   <!-- フッター -->
@@ -127,18 +50,15 @@
     </div>
   </footer>
 
-  <!-- JavaScript：JSONからホテルデータを取得してカード生成 -->
+  <!-- JavaScript：JSONからホテルデータ取得＆カード生成 -->
   <script>
-    // JSONファイルをfetch()で取得
     fetch('hotels.json')
       .then(response => response.json())
       .then(hotels => {
         const container = document.getElementById('hotelContainer');
         hotels.forEach(hotel => {
-          // カード生成
           const card = document.createElement('div');
           card.className = 'relative card fade-in glass rounded-2xl overflow-hidden shadow-xl';
-          // クリックで詳細ページへ（クエリパラメータでidを渡す）
           card.onclick = () => { window.location.href = `hotel.html?id=${hotel.id}`; };
 
           const img = document.createElement('img');
@@ -175,7 +95,7 @@
           card.appendChild(content);
           container.appendChild(card);
         });
-        // フェードインアニメーションを開始
+        // フェードイン表示
         document.querySelectorAll('.fade-in').forEach(el => {
           const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
