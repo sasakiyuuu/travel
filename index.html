@@ -6,12 +6,12 @@
   <title>LuxuryStay - ホーム</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- 共通CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gradient-to-b from-gray-50 to-gray-200">
+<body>
   <!-- ヒーローセクション -->
   <header class="relative h-screen bg-fixed bg-center bg-cover" style="background-image: url('https://source.unsplash.com/1600x900/?luxury,hotel');">
     <div class="hero-overlay"></div>
@@ -20,37 +20,37 @@
         <img src="logo.png" alt="Logo" class="h-10 mr-3">
         <span class="logo-text text-white text-2xl">LuxuryStay</span>
       </div>
-      <div class="w-full sm:w-auto flex space-x-4">
-        <a href="index.html" class="text-white hover:underline">ホーム</a>
-        <a href="hotel.html" class="text-white hover:underline">ホテル詳細</a>
-        <a href="contact.html" class="text-white hover:underline">お問い合わせ</a>
+      <div class="flex space-x-6">
+        <a href="index.html" class="nav-link">ホーム</a>
+        <a href="hotel.html" class="nav-link">ホテル詳細</a>
+        <a href="contact.html" class="nav-link">お問い合わせ</a>
       </div>
     </nav>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
       <h1 class="text-white text-4xl sm:text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg">新しい旅へ、ようこそ</h1>
       <p class="text-white text-lg sm:text-xl md:text-2xl mb-8 drop-shadow-md">最高の宿泊体験を、最安値で</p>
-      <button onclick="window.location.href='hotel.html'" class="bg-white text-gray-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full font-semibold shadow-lg transform transition duration-300 hover:scale-105">予約する</button>
+      <button onclick="window.location.href='hotel.html'" class="bg-white text-gray-800 px-8 py-3 rounded-full font-semibold shadow-lg transform transition duration-300 hover:scale-105">予約する</button>
     </div>
   </header>
 
-  <!-- メインコンテンツ：ホテルカード -->
-  <main id="hotelContainer" class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- JSONから読み込みでカード生成 -->
+  <!-- ホテル一覧 -->
+  <main id="hotelContainer" class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- ホテルカードはJSONから生成 -->
   </main>
 
   <!-- フッター -->
   <footer class="relative bg-gray-900 text-gray-300 py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
+    <div class="max-w-7xl mx-auto text-center">
       <p class="text-sm">&copy; 2025 LuxuryStay. All rights reserved.</p>
     </div>
     <div class="absolute bottom-0 left-0 right-0 overflow-hidden leading-none" style="height: 50px;">
-      <svg class="relative block w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M0,0 C50,100 150,100 200,0 L200,50 L0,50 Z" fill="#1a202c"></path>
       </svg>
     </div>
   </footer>
 
-  <!-- JavaScript：JSONからホテルデータ取得＆カード生成 -->
+  <!-- JSONからホテルデータ取得＆カード生成 -->
   <script>
     fetch('hotels.json')
       .then(response => response.json())
@@ -58,7 +58,7 @@
         const container = document.getElementById('hotelContainer');
         hotels.forEach(hotel => {
           const card = document.createElement('div');
-          card.className = 'relative card fade-in glass rounded-2xl overflow-hidden shadow-xl';
+          card.className = 'relative card fade-in overflow-hidden';
           card.onclick = () => { window.location.href = `hotel.html?id=${hotel.id}`; };
 
           const img = document.createElement('img');
@@ -87,7 +87,7 @@
 
           const priceDiv = document.createElement('div');
           const priceSpan = document.createElement('span');
-          priceSpan.className = 'price-text text-3xl font-extrabold inline-block';
+          priceSpan.className = 'price-text text-3xl font-extrabold';
           priceSpan.textContent = '最安値：' + hotel.lowestPrice;
           priceDiv.appendChild(priceSpan);
           content.appendChild(priceDiv);
@@ -95,7 +95,7 @@
           card.appendChild(content);
           container.appendChild(card);
         });
-        // フェードイン表示
+        // フェードインアニメーション
         document.querySelectorAll('.fade-in').forEach(el => {
           const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

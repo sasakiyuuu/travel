@@ -1,20 +1,23 @@
 /* styles.css */
+
+/* 基本設定 */
 body {
     font-family: 'Roboto', sans-serif;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
   }
   
-  /* 見出し・ロゴ用フォント */
+  /* 見出し・ロゴ */
   h1, h2, .logo-text {
     font-family: 'Playfair Display', serif;
   }
   
-  /* ヒーローセクションの背景オーバーレイ */
+  /* ヒーローセクション */
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(45deg, rgba(255,0,150,0.3), rgba(0,150,255,0.3));
+    background: linear-gradient(45deg, rgba(255,0,150,0.25), rgba(0,150,255,0.25));
     background-size: 400% 400%;
     animation: gradientAnimation 10s ease infinite;
   }
@@ -24,23 +27,36 @@ body {
     100% { background-position: 0% 50%; }
   }
   
-  /* ガラス感のあるナビゲーション */
+  /* Glassmorphism ナビゲーション */
   .glass-nav {
-    background: rgba(255,255,255,0.25);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   }
   
-  /* ホテルカードの共通スタイル */
+  /* ナビゲーションリンク */
+  .nav-link {
+    color: #1f2937;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  .nav-link:hover {
+    color: #3b82f6;
+  }
+  
+  /* ホテルカード */
   .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     cursor: pointer;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
   }
   .card:hover {
     transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
   }
   .card::after {
     content: "";
@@ -59,7 +75,7 @@ body {
     opacity: 1;
   }
   
-  /* 最安値テキストのグラデーションアニメーション */
+  /* 最安値テキストのグラデーション */
   .price-text {
     background: linear-gradient(45deg, #3a86ff, #ff006e);
     background-size: 200% 200%;
