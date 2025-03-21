@@ -3,853 +3,240 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ベストプライスステイ - 格安ホテル予約サイト</title>
+  <title>LuxuryStay - おしゃれで実用的なホテル予約サイト</title>
+  <!-- Google Fonts: Playfair Display（タイトル用）と Roboto（本文用） -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root {
-      --primary: #1a365d;
-      --secondary: #e2994a;
-      --light: #f8f9fa;
-      --dark: #212529;
-      --accent: #4a6fa5;
-      --text: #333;
-      --gold: #d4af37;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
-    }
-    
     body {
-      background-color: var(--light);
-      color: var(--text);
-      line-height: 1.8;
-      font-weight: 300;
+      font-family: 'Roboto', sans-serif;
     }
-    
-    header {
-      background-color: rgba(26, 54, 93, 0.95);
-      color: white;
-      padding: 1rem 0;
-      position: fixed;
-      width: 100%;
-      z-index: 1000;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+    h1, h2, .logo-text {
+      font-family: 'Playfair Display', serif;
     }
-    
-    .header-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-    }
-    
-    .logo span {
-      color: var(--gold);
-      font-weight: 700;
-    }
-    
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-    
-    nav ul li {
-      margin-left: 30px;
-    }
-    
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 400;
-      transition: color 0.3s;
-      font-size: 0.9rem;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    
-    nav ul li a:hover {
-      color: var(--gold);
-    }
-    
-    .mobile-menu-btn {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-    
-    .hero {
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('main.png');
-      background-size: cover;
-      background-position: center;
-      height: 85vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      position: relative;
-    }
-    
-    .hero-content {
-      max-width: 800px;
-      padding: 0 20px;
-      z-index: 10;
-    }
-    
-    .hero-content h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      font-weight: 300;
-      letter-spacing: 2px;
-    }
-    
-    .hero-content h1 span {
-      color: var(--gold);
-      font-weight: 600;
-    }
-    
-    .hero-content p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      line-height: 1.8;
-    }
-    
-    .hero::after {
-      content: '';
+    /* ヒーローセクション：背景アニメーショングラデーション */
+    .hero-overlay {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100px;
-      background: linear-gradient(to top, var(--light), transparent);
+      inset: 0;
+      background: linear-gradient(45deg, rgba(255, 0, 150, 0.3), rgba(0, 150, 255, 0.3));
+      background-size: 400% 400%;
+      animation: gradientAnimation 10s ease infinite;
     }
-    
-    .search-container {
-      background-color: white;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      margin-top: -100px;
-      position: relative;
-      max-width: 1000px;
-      margin-left: auto;
-      margin-right: auto;
-      z-index: 20;
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    
-    .search-form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+    /* ガラス感のあるナビゲーション */
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
     }
-    
-    .search-input {
-      flex: 1;
-      min-width: 200px;
-    }
-    
-    .search-input label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: var(--dark);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .search-input input, .search-input select {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #e0e0e0;
-      border-radius: 4px;
-      font-size: 1rem;
-      background-color: #fdfdfd;
-      transition: border-color 0.3s, box-shadow 0.3s;
-    }
-    
-    .search-input input:focus, .search-input select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
-    }
-    
-    .search-btn {
-      background-color: var(--secondary);
-      color: white;
-      border: none;
-      padding: 14px 30px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s, transform 0.3s;
-      margin-top: 27px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    .search-btn:hover {
-      background-color: #c98433;
-      transform: translateY(-2px);
-    }
-    
-    .section {
-      padding: 100px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-      font-size: 2.2rem;
-      font-weight: 300;
-      color: var(--primary);
-      position: relative;
-      letter-spacing: 1px;
-    }
-    
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 80px;
-      height: 3px;
-      background-color: var(--gold);
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-top: 60px;
-    }
-    
-    .feature-card {
-      flex-basis: calc(33.333% - 30px);
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
-      padding: 40px 30px;
-      margin-bottom: 40px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 100%;
-      background-color: var(--gold);
-      opacity: 0.8;
-      z-index: -1;
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-    
-    .feature-icon {
-      font-size: 3rem;
-      color: var(--primary);
-      margin-bottom: 25px;
-    }
-    
-    .feature-title {
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--primary);
-    }
-    
-    .destination-section {
-      background-color: #f8f9fa;
-      padding: 100px 0;
-      position: relative;
-    }
-    
-    .destination-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, rgba(26, 54, 93, 0.03) 0%, rgba(26, 54, 93, 0) 100%);
-    }
-    
-    .destination-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .destination-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 30px;
-    }
-    
-    .destination-card {
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      transition: transform 0.3s, box-shadow 0.3s;
-      background-color: white;
-    }
-    
-    .destination-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-    
-    .destination-img {
-      height: 200px;
-      width: 100%;
-      object-fit: cover;
-      transition: transform 0.5s;
-    }
-    
-    .destination-card:hover .destination-img {
-      transform: scale(1.05);
-    }
-    
-    .destination-info {
-      padding: 25px;
-      background-color: white;
-    }
-    
-    .destination-title {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      font-weight: 500;
-      color: var(--primary);
-    }
-    
-    .destination-price {
-      color: var(--secondary);
-      font-weight: 600;
-      font-size: 1.2rem;
-      margin-top: 10px;
-    }
-    
-    .destination-price span {
-      font-size: 0.9rem;
-      color: #777;
-      font-weight: 400;
-    }
-    
-    .destination-rating {
-      display: flex;
-      align-items: center;
-      margin: 15px 0;
-    }
-    
-    .star {
-      color: var(--gold);
-      margin-right: 2px;
-    }
-    
-    .destination-rating span:last-child {
-      margin-left: 10px;
-      font-size: 0.9rem;
-      color: #777;
-    }
-    
-    .destination-features {
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 15px;
-      gap: 10px;
-    }
-    
-    .destination-feature {
-      background-color: #f5f5f5;
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      color: #555;
-    }
-    
-    .guide-section {
-      background-color: white;
-      padding: 100px 0;
-    }
-    
-    .guide-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    
-    .guide-card {
-      background-color: white;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      padding: 40px 30px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative;
-      overflow: hidden;
-      height: 100%;
-    }
-    
-    .guide-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    }
-    
-    .guide-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100px;
-      height: 100px;
-      background: linear-gradient(135deg, transparent 50%, rgba(226, 153, 74, 0.1) 50%);
-      border-radius: 0 0 0 100px;
-    }
-    
-    .guide-title {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      font-weight: 500;
-      color: var(--primary);
-    }
-    
-    .guide-link {
-      display: inline-block;
-      margin-top: 20px;
-      color: var(--secondary);
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    
-    .guide-link:hover {
-      color: var(--primary);
-    }
-    
-    .guide-link::after {
-      content: ' →';
+    /* ヒーローテキストのフェードイン・スライドアップ */
+    .hero-text {
+      animation: fadeInSlide 1.2s ease-out forwards;
       opacity: 0;
-      transition: opacity 0.3s, transform 0.3s;
-      display: inline-block;
-      transform: translateX(-5px);
     }
-    
-    .guide-link:hover::after {
-      opacity: 1;
-      transform: translateX(3px);
+    @keyframes fadeInSlide {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
-    
-    footer {
-      background-color: var(--primary);
-      color: white;
-      padding: 80px 0 40px;
-    }
-    
-    .footer-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-    
-    .footer-section {
-      flex-basis: calc(25% - 40px);
-      margin-bottom: 40px;
-      min-width: 200px;
-    }
-    
-    .footer-title {
-      font-size: 1.2rem;
-      margin-bottom: 25px;
+    /* ホテルカードのスタイル */
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
-      font-weight: 500;
-      letter-spacing: 0.5px;
     }
-    
-    .footer-title::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 2px;
-      background-color: var(--gold);
-      margin-top: 15px;
+    .card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
     }
-    
-    .footer-links {
-      list-style: none;
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      padding: 2px;
+      background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+              mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
-    
-    .footer-links li {
-      margin-bottom: 15px;
+    .card:hover::after {
+      opacity: 1;
     }
-    
-    .footer-links a {
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      transition: color 0.3s;
-      font-size: 0.9rem;
+    /* 最安値テキストのグラデーションアニメーション */
+    .price-text {
+      background: linear-gradient(45deg, #3a86ff, #ff006e);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGradient 3s ease infinite;
     }
-    
-    .footer-links a:hover {
-      color: var(--gold);
+    @keyframes textGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    
-    .footer-contact {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
+    /* スクロール時のフェードイン */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
-    
-    .footer-contact li {
-      margin-bottom: 15px;
-      display: flex;
-      align-items: flex-start;
-    }
-    
-    .contact-icon {
-      margin-right: 10px;
-      color: var(--gold);
-    }
-    
-    .copyright {
-      text-align: center;
-      padding-top: 30px;
-      margin-top: 40px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      width: 100%;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
-    }
-    
-    @media (max-width: 992px) {
-      .feature-card {
-        flex-basis: calc(50% - 20px);
-      }
-      
-      .footer-section {
-        flex-basis: calc(50% - 20px);
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .hero-content h1 {
-        font-size: 2.5rem;
-      }
-      
-      .mobile-menu-btn {
-        display: block;
-      }
-      
-      nav ul {
-        display: none;
-        position: absolute;
-        top: 80px;
-        left: 0;
-        width: 100%;
-        background-color: var(--primary);
-        flex-direction: column;
-        padding: 20px 0;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      }
-      
-      nav ul.show {
-        display: flex;
-      }
-      
-      nav ul li {
-        margin: 10px 0;
-        text-align: center;
-      }
-      
-      .search-container {
-        padding: 20px;
-      }
-      
-      .search-btn {
-        width: 100%;
-      }
-      
-      .section {
-        padding: 60px 20px;
-      }
-      
-      .section-title {
-        font-size: 1.8rem;
-      }
-    }
-    
-    @media (max-width: 576px) {
-      .hero {
-        height: 70vh;
-      }
-      
-      .hero-content h1 {
-        font-size: 2rem;
-      }
-      
-      .feature-card {
-        flex-basis: 100%;
-      }
-      
-      .footer-section {
-        flex-basis: 100%;
-      }
-      
-      .search-container {
-        margin-top: -80px;
-      }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
-<body>
-  <header>
-    <div class="header-container">
-      <div class="logo">Best<span>Stay</span></div>
-      <button class="mobile-menu-btn">☰</button>
-      <nav>
-        <ul>
-          <li><a href="#">ホーム</a></li>
-          <li><a href="#">ホテル比較</a></li>
-          <li><a href="#">旅行ガイド</a></li>
-          <li><a href="#">お問い合わせ</a></li>
-        </ul>
-      </nav>
+<body class="bg-gradient-to-b from-gray-50 to-gray-200">
+  <!-- ヒーローセクション -->
+  <header class="relative h-screen bg-fixed bg-center bg-cover" style="background-image: url('https://source.unsplash.com/1600x900/?luxury,hotel');">
+    <div class="hero-overlay"></div>
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-20 flex items-center justify-between p-6">
+      <div class="flex items-center">
+        <img src="logo.png" alt="Logo" class="h-10 mr-3">
+        <span class="logo-text text-white text-2xl">LuxuryStay</span>
+      </div>
+      <div class="w-2/3 sm:w-1/3">
+        <input type="text" id="searchInput" placeholder="ホテル名・地域で検索" class="w-full px-4 py-2 rounded-full focus:outline-none" />
+      </div>
+    </nav>
+    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+      <h1 class="hero-text text-white text-5xl sm:text-7xl font-bold mb-4 drop-shadow-lg">新しい旅へ、ようこそ</h1>
+      <p class="hero-text text-white text-xl sm:text-2xl mb-8 drop-shadow-md" style="animation-delay: 0.5s;">最高の宿泊体験を、最安値で</p>
+      <button class="hero-text bg-white text-gray-800 px-8 py-3 rounded-full font-semibold shadow-lg transform transition duration-300 hover:scale-105" style="animation-delay: 1s;">予約する</button>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>上質な滞在を<span>お手頃価格</span>で</h1>
-      <p>厳選されたホテルを最安値で。特別な旅行体験をリーズナブルな価格でお届けします。</p>
+  <!-- メインコンテンツ：ホテルカード（動的生成） -->
+  <main id="hotelContainer" class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- ホテルカードはJavaScriptで生成されます -->
+  </main>
+
+  <!-- フッター -->
+  <footer class="relative bg-gray-900 text-gray-300 py-8">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <p class="text-sm">&copy; 2025 LuxuryStay. All rights reserved.</p>
     </div>
-  </section>
-
-  <div class="search-container">
-    <form class="search-form">
-      <div class="search-input">
-        <label for="destination">目的地</label>
-        <input type="text" id="destination" placeholder="都市、ホテル名など">
-      </div>
-      <div class="search-input">
-        <label for="checkin">チェックイン</label>
-        <input type="date" id="checkin">
-      </div>
-      <div class="search-input">
-        <label for="checkout">チェックアウト</label>
-        <input type="date" id="checkout">
-      </div>
-      <div class="search-input">
-        <label for="guests">宿泊人数</label>
-        <select id="guests">
-          <option value="1">1人</option>
-          <option value="2" selected>2人</option>
-          <option value="3">3人</option>
-          <option value="4">4人</option>
-          <option value="5+">5人以上</option>
-        </select>
-      </div>
-      <button type="submit" class="search-btn">検索する</button>
-    </form>
-  </div>
-
-  <section class="section">
-    <h2 class="section-title">BestStayが選ばれる理由</h2>
-    <div class="features">
-      <div class="feature-card">
-        <div class="feature-icon">💰</div>
-        <h3 class="feature-title">最安値保証</h3>
-        <p>常に市場を分析し、最安値を保証。他のサイトより安いホテルが見つかった場合、差額を返金いたします。ご安心してご予約ください。</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔍</div>
-        <h3 class="feature-title">厳選されたホテル</h3>
-        <p>コストパフォーマンスに優れた高品質なホテルのみを厳選。妥協のない快適さと価格のバランスを追求しています。</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⭐</div>
-        <h3 class="feature-title">実際の口コミ</h3>
-        <p>実際に宿泊したゲストによる正直な口コミを掲載。期待通りの滞在を実現するための参考にしていただけます。</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="destination-section">
-    <div class="destination-container">
-      <h2 class="section-title">人気のホテル</h2>
-      <div class="destination-grid">
-        <div class="destination-card">
-          <img src="tokyo.png" alt="東京" class="destination-img">
-          <div class="destination-info">
-            <h3 class="destination-title">東京 - グランドホテル銀座</h3>
-            <div class="destination-rating">
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span>(4.8/5 - 320件)</span>
-            </div>
-            <p>銀座駅から徒歩3分、洗練された空間で優雅なひとときを</p>
-            <div class="destination-features">
-              <span class="destination-feature">無料Wi-Fi</span>
-              <span class="destination-feature">朝食付き</span>
-              <span class="destination-feature">スパ</span>
-            </div>
-            <p class="destination-price">¥15,800 <span>~/泊</span></p>
-          </div>
-        </div>
-        <div class="destination-card">
-          <img src="osaka.png" alt="大阪" class="destination-img">
-          <div class="destination-info">
-            <h3 class="destination-title">大阪 - リバーサイドラグジュアリー</h3>
-            <div class="destination-rating">
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span>(4.7/5 - 245件)</span>
-            </div>
-            <p>水辺の景色を望む、モダンで快適な空間</p>
-            <div class="destination-features">
-              <span class="destination-feature">無料Wi-Fi</span>
-              <span class="destination-feature">プール</span>
-              <span class="destination-feature">フィットネス</span>
-            </div>
-            <p class="destination-price">¥12,500 <span>~/泊</span></p>
-          </div>
-        </div>
-        <div class="destination-card">
-          <img src="kyoto.png" alt="京都" class="destination-img">
-          <div class="destination-info">
-            <h3 class="destination-title">京都 - 古都レジデンス</h3>
-            <div class="destination-rating">
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span class="star">★</span>
-              <span>(4.9/5 - 512件)</span>
-            </div>
-            <p>伝統と現代が調和した、至福の京都体験</p>
-            <div class="destination-features">
-              <span class="destination-feature">無料Wi-Fi</span>
-              <span class="destination-feature">温泉</span>
-              <span class="destination-feature">日本庭園</span>
-            </div>
-            <p class="destination-price">¥18,900 <span>~/泊</span></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="guide-section">
-    <div class="guide-container">
-      <h2 class="section-title">旅行ガイド</h2>
-      <div class="features">
-        <div class="guide-card">
-          <h3 class="guide-title">リーズナブルに楽しむ贅沢旅行</h3>
-          <p>旅行シーズンの選び方、早期予約の特典、ポイントやマイルの活用方法など、賢く予約して上質な旅行をお得に楽しむ方法をご紹介します。</p>
-          <a href="#" class="guide-link">ガイドを読む</a>
-        </div>
-        <div class="guide-card">
-          <h3 class="guide-title">人気都市の隠れた魅力</h3>
-          <p>観光地として有名な都市の、あまり知られていない穴場スポットや、地元の人だけが知る名店、混雑を避けて観光を楽しむコツをご紹介します。</p>
-          <a href="#" class="guide-link">ガイドを読む</a>
-        </div>
-        <div class="guide-card">
-          <h3 class="guide-title">ホテル選びのポイント</h3>
-          <p>立地、設備、サービス、口コミの見方など、自分に最適なホテルを選ぶためのポイントを解説。予約前に確認すべきことリストも掲載しています。</p>
-          <a href="#" class="guide-link">ガイドを読む</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h3 class="footer-title">BestStay</h3>
-        <p>最高品質のホテルを最安値で予約できる比較サイト。あなたの旅をより豊かに、より快適に、よりリーズナブルに。</p>
-      </div>
-      <div class="footer-section">
-        <h3 class="footer-title">サイトマップ</h3>
-        <ul class="footer-links">
-          <li><a href="#">ホーム</a></li>
-          <li><a href="#">ホテル比較</a></li>
-          <li><a href="#">旅行ガイド</a></li>
-          <li><a href="#">お問い合わせ</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3 class="footer-title">サポート</h3>
-        <ul class="footer-links">
-          <li><a href="#">よくある質問</a></li>
-          <li><a href="#">予約方法</a></li>
-          <li><a href="#">キャンセルポリシー</a></li>
-          <li><a href="#">プライバシーポリシー</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3 class="footer-title">お問い合わせ</h3>
-        <ul class="footer-contact">
-          <li><span class="contact-icon">✉</span> contact@beststay.jp</li>
-          <li><span class="contact-icon">☎</span> 000-0000-0000</li>
-          <li><span class="contact-icon">📍</span> 名古屋</li>
-        </ul>
-      </div>
-      <div class="copyright">
-        &copy; 2025 BestStay All Rights Reserved.
-      </div>
+    <div class="absolute bottom-0 left-0 right-0 overflow-hidden leading-none" style="height: 50px;">
+      <svg class="relative block w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,0 C50,100 150,100 200,0 L200,50 L0,50 Z" fill="#1a202c"></path>
+      </svg>
     </div>
   </footer>
 
+  <!-- JavaScriptでホテルデータを動的に生成 -->
   <script>
-    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-      document.querySelector('nav ul').classList.toggle('show');
-    });
-    
-    window.addEventListener('scroll', function() {
-      const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.style.padding = '0.5rem 0';
-        header.style.backgroundColor = 'rgba(26, 54, 93, 0.98)';
-      } else {
-        header.style.padding = '1rem 0';
-        header.style.backgroundColor = 'rgba(26, 54, 93, 0.95)';
+    const hotels = [
+      {
+        name: 'ホテル東京',
+        location: '東京都新宿区',
+        regularPrice: '¥15,000/泊',
+        lowestPrice: '¥13,500',
+        image: 'https://source.unsplash.com/featured/?luxury,hotel,Tokyo'
+      },
+      {
+        name: 'ホテル大阪',
+        location: '大阪市北区',
+        regularPrice: '¥12,000/泊',
+        lowestPrice: '¥10,800',
+        image: 'https://source.unsplash.com/featured/?luxury,hotel,Osaka'
+      },
+      {
+        name: 'ホテル京都',
+        location: '京都市中京区',
+        regularPrice: '¥18,000/泊',
+        lowestPrice: '¥16,200',
+        image: 'https://source.unsplash.com/featured/?luxury,hotel,Kyoto'
+      },
+      {
+        name: 'ホテル福岡',
+        location: '福岡市中央区',
+        regularPrice: '¥13,000/泊',
+        lowestPrice: '¥11,700',
+        image: 'https://source.unsplash.com/featured/?luxury,hotel,Fukuoka'
+      },
+      {
+        name: 'ホテル札幌',
+        location: '札幌市中央区',
+        regularPrice: '¥14,000/泊',
+        lowestPrice: '¥12,600',
+        image: 'https://source.unsplash.com/featured/?luxury,hotel,Sapporo'
+      },
+      {
+        name: 'ホテル横浜',
+        location: '横浜市西区',
+        regularPrice: '¥16,000/泊',
+        lowestPrice: '¥14,400',
+        image: 'https://source.unsplash.com/featured/?luxury,hotel,Yokohama'
       }
+      // 必要に応じてさらにホテルデータを追加可能
+    ];
+
+    const hotelContainer = document.getElementById('hotelContainer');
+
+    function createHotelCard(hotel) {
+      const card = document.createElement('div');
+      card.className = 'relative card fade-in glass rounded-2xl overflow-hidden shadow-xl';
+
+      const img = document.createElement('img');
+      img.src = hotel.image;
+      img.alt = hotel.name;
+      img.className = 'w-full h-56 object-cover';
+      card.appendChild(img);
+
+      const content = document.createElement('div');
+      content.className = 'p-6 relative z-10';
+      
+      const title = document.createElement('h2');
+      title.className = 'text-2xl font-bold text-gray-800 mb-2';
+      title.textContent = hotel.name;
+      content.appendChild(title);
+
+      const loc = document.createElement('p');
+      loc.className = 'text-gray-600 mb-2';
+      loc.textContent = hotel.location;
+      content.appendChild(loc);
+
+      const regular = document.createElement('p');
+      regular.className = 'text-gray-500 text-sm mb-4';
+      regular.textContent = '通常料金：' + hotel.regularPrice;
+      content.appendChild(regular);
+
+      const priceDiv = document.createElement('div');
+      const priceSpan = document.createElement('span');
+      priceSpan.className = 'price-text text-3xl font-extrabold inline-block';
+      priceSpan.textContent = '最安値：' + hotel.lowestPrice;
+      priceDiv.appendChild(priceSpan);
+      content.appendChild(priceDiv);
+
+      card.appendChild(content);
+      return card;
+    }
+
+    hotels.forEach(hotel => {
+      hotelContainer.appendChild(createHotelCard(hotel));
+    });
+
+    // スクロール時のフェードインアニメーション
+    document.addEventListener("DOMContentLoaded", function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
     });
   </script>
 </body>
