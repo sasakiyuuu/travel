@@ -2,28 +2,26 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <!-- viewport-fit=cover を追加 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>LuxuryStay - おしゃれで実用的なホテル予約サイト</title>
-  <!-- Google Fonts: Playfair Display（タイトル用）と Roboto（本文用） -->
+  <title>LuxuryStay - ホーム</title>
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      /* セーフエリア対応 */
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
     }
     h1, h2, .logo-text {
       font-family: 'Playfair Display', serif;
     }
-    /* ヒーローセクション：背景アニメーショングラデーション */
+    /* ヒーロー背景・アニメーション */
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(45deg, rgba(255, 0, 150, 0.3), rgba(0, 150, 255, 0.3));
+      background: linear-gradient(45deg, rgba(255,0,150,0.3), rgba(0,150,255,0.3));
       background-size: 400% 400%;
       animation: gradientAnimation 10s ease infinite;
     }
@@ -34,28 +32,20 @@
     }
     /* ガラス感のあるナビゲーション */
     .glass-nav {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255,255,255,0.25);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-    }
-    /* ヒーローテキストのフェードイン・スライドアップ */
-    .hero-text {
-      animation: fadeInSlide 1.2s ease-out forwards;
-      opacity: 0;
-    }
-    @keyframes fadeInSlide {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+      border: 1px solid rgba(255,255,255,0.18);
     }
     /* ホテルカードのスタイル */
     .card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
+      cursor: pointer;
     }
     .card:hover {
       transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 15px 25px rgba(0,0,0,0.3);
     }
     .card::after {
       content: "";
@@ -64,9 +54,7 @@
       border-radius: 1rem;
       padding: 2px;
       background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
-      -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: destination-out;
               mask-composite: exclude;
       opacity: 0;
@@ -75,7 +63,7 @@
     .card:hover::after {
       opacity: 1;
     }
-    /* 最安値テキストのグラデーションアニメーション */
+    /* 最安値テキスト */
     .price-text {
       background: linear-gradient(45deg, #3a86ff, #ff006e);
       background-size: 200% 200%;
@@ -88,7 +76,7 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    /* スクロール時のフェードイン */
+    /* フェードイン */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -104,27 +92,27 @@
   <!-- ヒーローセクション -->
   <header class="relative h-screen bg-fixed bg-center bg-cover" style="background-image: url('https://source.unsplash.com/1600x900/?luxury,hotel');">
     <div class="hero-overlay"></div>
-    <!-- ナビゲーション：モバイルでは縦並び、画面が広いと横並び -->
     <nav class="glass-nav fixed top-0 left-0 right-0 z-20 flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6">
       <div class="flex items-center mb-4 sm:mb-0">
         <img src="logo.png" alt="Logo" class="h-10 mr-3">
         <span class="logo-text text-white text-2xl">LuxuryStay</span>
       </div>
-      <div class="w-full sm:w-2/3">
-        <input type="text" id="searchInput" placeholder="ホテル名・地域で検索" class="w-full px-4 py-2 rounded-full focus:outline-none" />
+      <div class="w-full sm:w-auto flex space-x-4">
+        <a href="index.html" class="text-white hover:underline">ホーム</a>
+        <a href="hotel.html" class="text-white hover:underline">ホテル詳細</a>
+        <a href="contact.html" class="text-white hover:underline">お問い合わせ</a>
       </div>
     </nav>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-      <!-- ヒーローテキスト：小さい画面ではフォントサイズを抑え、大画面では大きく -->
-      <h1 class="hero-text text-white text-4xl sm:text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg">新しい旅へ、ようこそ</h1>
-      <p class="hero-text text-white text-lg sm:text-xl md:text-2xl mb-8 drop-shadow-md" style="animation-delay: 0.5s;">最高の宿泊体験を、最安値で</p>
-      <button class="hero-text bg-white text-gray-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full font-semibold shadow-lg transform transition duration-300 hover:scale-105" style="animation-delay: 1s;">予約する</button>
+      <h1 class="text-white text-4xl sm:text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg">新しい旅へ、ようこそ</h1>
+      <p class="text-white text-lg sm:text-xl md:text-2xl mb-8 drop-shadow-md">最高の宿泊体験を、最安値で</p>
+      <button onclick="window.location.href='hotel.html'" class="bg-white text-gray-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full font-semibold shadow-lg transform transition duration-300 hover:scale-105">予約する</button>
     </div>
   </header>
 
-  <!-- メインコンテンツ：ホテルカード（動的生成） -->
+  <!-- メインコンテンツ：ホテルカード -->
   <main id="hotelContainer" class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- ホテルカードはJavaScriptで生成されます -->
+    <!-- JSON読み込みでカード生成 -->
   </main>
 
   <!-- フッター -->
@@ -139,111 +127,68 @@
     </div>
   </footer>
 
-  <!-- JavaScriptでホテルデータを動的に生成 -->
+  <!-- JavaScript：JSONからホテルデータを取得してカード生成 -->
   <script>
-    const hotels = [
-      {
-        name: 'ホテル東京',
-        location: '東京都新宿区',
-        regularPrice: '¥15,000/泊',
-        lowestPrice: '¥13,500',
-        image: 'https://source.unsplash.com/featured/?luxury,hotel,Tokyo'
-      },
-      {
-        name: 'ホテル大阪',
-        location: '大阪市北区',
-        regularPrice: '¥12,000/泊',
-        lowestPrice: '¥10,800',
-        image: 'https://source.unsplash.com/featured/?luxury,hotel,Osaka'
-      },
-      {
-        name: 'ホテル京都',
-        location: '京都市中京区',
-        regularPrice: '¥18,000/泊',
-        lowestPrice: '¥16,200',
-        image: 'https://source.unsplash.com/featured/?luxury,hotel,Kyoto'
-      },
-      {
-        name: 'ホテル福岡',
-        location: '福岡市中央区',
-        regularPrice: '¥13,000/泊',
-        lowestPrice: '¥11,700',
-        image: 'https://source.unsplash.com/featured/?luxury,hotel,Fukuoka'
-      },
-      {
-        name: 'ホテル札幌',
-        location: '札幌市中央区',
-        regularPrice: '¥14,000/泊',
-        lowestPrice: '¥12,600',
-        image: 'https://source.unsplash.com/featured/?luxury,hotel,Sapporo'
-      },
-      {
-        name: 'ホテル横浜',
-        location: '横浜市西区',
-        regularPrice: '¥16,000/泊',
-        lowestPrice: '¥14,400',
-        image: 'https://source.unsplash.com/featured/?luxury,hotel,Yokohama'
-      }
-      // 必要に応じてさらにホテルデータを追加可能
-    ];
+    // JSONファイルをfetch()で取得
+    fetch('hotels.json')
+      .then(response => response.json())
+      .then(hotels => {
+        const container = document.getElementById('hotelContainer');
+        hotels.forEach(hotel => {
+          // カード生成
+          const card = document.createElement('div');
+          card.className = 'relative card fade-in glass rounded-2xl overflow-hidden shadow-xl';
+          // クリックで詳細ページへ（クエリパラメータでidを渡す）
+          card.onclick = () => { window.location.href = `hotel.html?id=${hotel.id}`; };
 
-    const hotelContainer = document.getElementById('hotelContainer');
+          const img = document.createElement('img');
+          img.src = hotel.image;
+          img.alt = hotel.name;
+          img.className = 'w-full h-56 object-cover';
+          card.appendChild(img);
 
-    function createHotelCard(hotel) {
-      const card = document.createElement('div');
-      card.className = 'relative card fade-in glass rounded-2xl overflow-hidden shadow-xl';
+          const content = document.createElement('div');
+          content.className = 'p-6 relative z-10';
 
-      const img = document.createElement('img');
-      img.src = hotel.image;
-      img.alt = hotel.name;
-      img.className = 'w-full h-56 object-cover';
-      card.appendChild(img);
+          const title = document.createElement('h2');
+          title.className = 'text-2xl font-bold text-gray-800 mb-2';
+          title.textContent = hotel.name;
+          content.appendChild(title);
 
-      const content = document.createElement('div');
-      content.className = 'p-6 relative z-10';
-      
-      const title = document.createElement('h2');
-      title.className = 'text-2xl font-bold text-gray-800 mb-2';
-      title.textContent = hotel.name;
-      content.appendChild(title);
+          const loc = document.createElement('p');
+          loc.className = 'text-gray-600 mb-2';
+          loc.textContent = hotel.location;
+          content.appendChild(loc);
 
-      const loc = document.createElement('p');
-      loc.className = 'text-gray-600 mb-2';
-      loc.textContent = hotel.location;
-      content.appendChild(loc);
+          const regular = document.createElement('p');
+          regular.className = 'text-gray-500 text-sm mb-4';
+          regular.textContent = '通常料金：' + hotel.regularPrice;
+          content.appendChild(regular);
 
-      const regular = document.createElement('p');
-      regular.className = 'text-gray-500 text-sm mb-4';
-      regular.textContent = '通常料金：' + hotel.regularPrice;
-      content.appendChild(regular);
+          const priceDiv = document.createElement('div');
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'price-text text-3xl font-extrabold inline-block';
+          priceSpan.textContent = '最安値：' + hotel.lowestPrice;
+          priceDiv.appendChild(priceSpan);
+          content.appendChild(priceDiv);
 
-      const priceDiv = document.createElement('div');
-      const priceSpan = document.createElement('span');
-      priceSpan.className = 'price-text text-3xl font-extrabold inline-block';
-      priceSpan.textContent = '最安値：' + hotel.lowestPrice;
-      priceDiv.appendChild(priceSpan);
-      content.appendChild(priceDiv);
-
-      card.appendChild(content);
-      return card;
-    }
-
-    hotels.forEach(hotel => {
-      hotelContainer.appendChild(createHotelCard(hotel));
-    });
-
-    // スクロール時のフェードインアニメーション
-    document.addEventListener("DOMContentLoaded", function () {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target);
-          }
+          card.appendChild(content);
+          container.appendChild(card);
         });
-      }, { threshold: 0.3 });
-      document.querySelectorAll(".fade-in").forEach(el => observer.observe(el));
-    });
+        // フェードインアニメーションを開始
+        document.querySelectorAll('.fade-in').forEach(el => {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.3 });
+          observer.observe(el);
+        });
+      })
+      .catch(error => console.error('Error loading hotels:', error));
   </script>
 </body>
 </html>
