@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- viewport-fit=cover を追加 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>LuxuryStay - おしゃれで実用的なホテル予約サイト</title>
   <!-- Google Fonts: Playfair Display（タイトル用）と Roboto（本文用） -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
@@ -11,6 +12,9 @@
   <style>
     body {
       font-family: 'Roboto', sans-serif;
+      /* セーフエリア対応 */
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
     }
     h1, h2, .logo-text {
       font-family: 'Playfair Display', serif;
@@ -100,24 +104,26 @@
   <!-- ヒーローセクション -->
   <header class="relative h-screen bg-fixed bg-center bg-cover" style="background-image: url('https://source.unsplash.com/1600x900/?luxury,hotel');">
     <div class="hero-overlay"></div>
-    <nav class="glass-nav fixed top-0 left-0 right-0 z-20 flex items-center justify-between p-6">
-      <div class="flex items-center">
+    <!-- ナビゲーション：モバイルでは縦並び、画面が広いと横並び -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-20 flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6">
+      <div class="flex items-center mb-4 sm:mb-0">
         <img src="logo.png" alt="Logo" class="h-10 mr-3">
         <span class="logo-text text-white text-2xl">LuxuryStay</span>
       </div>
-      <div class="w-2/3 sm:w-1/3">
+      <div class="w-full sm:w-2/3">
         <input type="text" id="searchInput" placeholder="ホテル名・地域で検索" class="w-full px-4 py-2 rounded-full focus:outline-none" />
       </div>
     </nav>
     <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-      <h1 class="hero-text text-white text-5xl sm:text-7xl font-bold mb-4 drop-shadow-lg">新しい旅へ、ようこそ</h1>
-      <p class="hero-text text-white text-xl sm:text-2xl mb-8 drop-shadow-md" style="animation-delay: 0.5s;">最高の宿泊体験を、最安値で</p>
-      <button class="hero-text bg-white text-gray-800 px-8 py-3 rounded-full font-semibold shadow-lg transform transition duration-300 hover:scale-105" style="animation-delay: 1s;">予約する</button>
+      <!-- ヒーローテキスト：小さい画面ではフォントサイズを抑え、大画面では大きく -->
+      <h1 class="hero-text text-white text-4xl sm:text-5xl md:text-7xl font-bold mb-4 drop-shadow-lg">新しい旅へ、ようこそ</h1>
+      <p class="hero-text text-white text-lg sm:text-xl md:text-2xl mb-8 drop-shadow-md" style="animation-delay: 0.5s;">最高の宿泊体験を、最安値で</p>
+      <button class="hero-text bg-white text-gray-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full font-semibold shadow-lg transform transition duration-300 hover:scale-105" style="animation-delay: 1s;">予約する</button>
     </div>
   </header>
 
   <!-- メインコンテンツ：ホテルカード（動的生成） -->
-  <main id="hotelContainer" class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  <main id="hotelContainer" class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- ホテルカードはJavaScriptで生成されます -->
   </main>
 
