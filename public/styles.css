@@ -1,0 +1,144 @@
+/* styles.css */
+
+/* Google Fonts は各 HTML で読み込む前提 */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    color: #1f2937;
+  }
+  
+  /* 共通見出し・ロゴ */
+  h1, h2, .logo-text {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  /* ヒーローセクション用 */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, rgba(255,0,150,0.25), rgba(0,150,255,0.25));
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+  }
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* Glassmorphism ナビゲーション */
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+  }
+  
+  /* ナビゲーションリンク */
+  .nav-link {
+    color: #1f2937;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .nav-link:hover {
+    color: #3b82f6;
+  }
+  
+  /* 共通ヘッダー・フッター */
+  .header,
+  .footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  /* ホテルカード */
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 2px;
+    background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .card:hover::after {
+    opacity: 1;
+  }
+  
+  /* 最安値テキスト */
+  .price-text {
+    background: linear-gradient(45deg, #3a86ff, #ff006e);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGradient 3s ease infinite;
+  }
+  @keyframes textGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  /* フェードイン */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* フォーム */
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    transition: border 0.3s ease;
+  }
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+  .form-btn {
+    background: #3b82f6;
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 9999px;
+    transition: background 0.3s ease;
+  }
+  .form-btn:hover {
+    background: #2563eb;
+  }
+  

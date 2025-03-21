@@ -1,0 +1,48 @@
+[
+    {
+      "id": 1,
+      "name": "ホテル東京",
+      "location": "東京都新宿区",
+      "regularPrice": "¥15,000/泊",
+      "lowestPrice": "¥13,500",
+      "image": "https://source.unsplash.com/featured/?hotel,Tokyo",
+      "description": "東京の中心部に位置し、快適な滞在をお約束します。"
+    },
+    {
+      "id": 2,
+      "name": "ホテル大阪",
+      "location": "大阪市北区",
+      "regularPrice": "¥12,000/泊",
+      "lowestPrice": "¥10,800",
+      "image": "https://source.unsplash.com/featured/?hotel,Osaka",
+      "description": "大阪の魅力を感じられるロケーションにあるホテルです。"
+    },
+    {
+      "id": 3,
+      "name": "ホテル京都",
+      "location": "京都市中京区",
+      "regularPrice": "¥18,000/泊",
+      "lowestPrice": "¥16,200",
+      "image": "https://source.unsplash.com/featured/?hotel,Kyoto",
+      "description": "歴史と伝統が息づく京都で、贅沢な時間をお過ごしください。"
+    },
+    {
+      "id": 4,
+      "name": "ホテル福岡",
+      "location": "福岡市中央区",
+      "regularPrice": "¥13,000/泊",
+      "lowestPrice": "¥11,700",
+      "image": "https://source.unsplash.com/featured/?hotel,Fukuoka",
+      "description": "福岡の美食と文化を楽しめる魅力的なホテルです。"
+    },
+    {
+      "id": 5,
+      "name": "ホテル札幌",
+      "location": "札幌市中央区",
+      "regularPrice": "¥14,000/泊",
+      "lowestPrice": "¥12,600",
+      "image": "https://source.unsplash.com/featured/?hotel,Sapporo",
+      "description": "札幌の雪景色と都市の利便性を両立したホテル。"
+    }
+  ]
+  
